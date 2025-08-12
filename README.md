@@ -63,7 +63,7 @@ Two parallel strategies were pursued:
 - Successfully computed and visualized geodesic distances from arbitrary borders on synthetic valve models.
 - **Example:** Distance fields propagate uniformly, even on irregular surfaces (see Figure below).
 
-  <img src="src/geodesic.png" alt="Geodesic distance visualization" style="width: 50%;">
+  <img src="img/geodesic.png" alt="Geodesic distance visualization" style="width: 50%;">
   
   *Gradient-colored points show geodesic distance to a user-defined border (blue).*
 
@@ -75,8 +75,7 @@ Two parallel strategies were pursued:
     - **Consistency** (suitable for superposition in PCA).
     - **Adaptability** to surface irregularities (e.g., prolapse-like deformations).
 
-  ![Quadrilateral mesh result](placeholder_for_quad_mesh)
-  <img src="src/geodesic.png" alt="Geodesic distance visualization" style="width: 50%;">
+  <img src="img/geodesic2.png" alt="Quadrilateral mesh result" style="width: 50%;">
 
   *Quad-dominant geodesic mesh of a cylinder (proxy for cardiac valve).*
 
@@ -106,6 +105,9 @@ Two parallel strategies were pursued:
 ---
 ### **References**
 [1] Novotni & Klein (2002). *Computing geodesic distances on triangular meshes.*
+
 [2] Surazhsky et al. (2005). *Fast exact and approximate geodesics on meshes.*
-[3] Chen et al. (2018). *Metric based quadrilateral mesh generation.* [[arXiv:1811.12604]](#)
+
+[3] Chen et al. (2018). *Metric based quadrilateral mesh generation.*
+
 [4] Crane et al. (2017). *The heat method for distance computation.*
