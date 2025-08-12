@@ -37,7 +37,6 @@ Two parallel strategies were pursued:
      - Extract point clouds from binary images using `vtk`.
      - Compute geodesic distances from user-defined borders (e.g., valve edges).
      - Visualize distance fields to validate geodesic calculations.
-     - *(Note: Full automation of quad meshing was not achieved in this approach.)*
 
 2. **Collaborative Approach (External Algorithm)**
    - **Partnership:** Collaboration with **Wei Chen** (Dalian University of Technology), author of a novel quadrilateral geodesic meshing algorithm [[4]](#references).
@@ -62,13 +61,14 @@ Two parallel strategies were pursued:
 
 #### **Geodesic Distance Visualization**
 - Successfully computed and visualized geodesic distances from arbitrary borders on synthetic valve models.
-- **Example:** Distance fields propagate uniformly, even on irregular surfaces (Figure 9–10 in report).
+- **Example:** Distance fields propagate uniformly, even on irregular surfaces (see Figure below).
 
-  ![Geodesic distance visualization](placeholder_for_geodesic_fig)
+  <img src="src/geodesic.png" alt="Geodesic distance visualization" style="width: 50%;">
+  
   *Gradient-colored points show geodesic distance to a user-defined border (blue).*
 
 #### **Quadrilateral Meshing**
-- **Collaborative Approach Yielded Optimal Results:**
+- **Collaborative Approach:**
   - Wei Chen’s algorithm produced **high-quality quadrilateral meshes** from triangular inputs.
   - Meshes exhibit:
     - **Regular element distribution** (minimal distortion).
@@ -76,6 +76,8 @@ Two parallel strategies were pursued:
     - **Adaptability** to surface irregularities (e.g., prolapse-like deformations).
 
   ![Quadrilateral mesh result](placeholder_for_quad_mesh)
+  <img src="src/geodesic.png" alt="Geodesic distance visualization" style="width: 50%;">
+
   *Quad-dominant geodesic mesh of a cylinder (proxy for cardiac valve).*
 
 #### **Validation**
