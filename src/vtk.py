@@ -1,5 +1,5 @@
 """
-Récupérer un maillage au format obj à partir des images binaires tif
+Retrieve a mesh in obj format from binary tif images
 """
 
 # noinspection PyUnresolvedReferences

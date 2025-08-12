@@ -1,36 +1,35 @@
 """
-Transforme un fichier .csv de nuage de points avec tabulations en fichier .csv classique
-avec des virgules
+Transform a .csv file of point clouds with tabs into a standard .csv file with commas
 """
 
 import csv
 
 
-def conversion(nomSansExtension):
-    fileCsv = open(nomSansExtension + '.csv')
+def conversion(nameWithoutExtension):
+    fileCsv = open(nameWithoutExtension + '.csv')
     csvreader = csv.reader(fileCsv)
-    fileTxt = open(nomSansExtension + 'SansTabulation.csv', 'w')
+    fileTxt = open(nameWithoutExtension + 'SansTabulation.csv', 'w')
     for row in csvreader:
-        if row != []: # dernière ligne est vide
-            ligne = row[0]
-            nouvelleLigne = ''
+        if row != []:  # last line is empty
+            line = row[0]
+            newLine = ''
             i = 0
             for j in range(3):
-                mot = ''
-                while ligne[i] != '\t':
-                    mot += ligne[i]
+                word = ''
+                while line[i] != '\t':
+                    word += line[i]
                     i += 1
-                nouvelleLigne += mot
+                newLine += word
                 if j != 2:
-                    nouvelleLigne += ','
+                    newLine += ','
                 i += 1
 
-            #on a récup les coordonnées
-            fileTxt.write(nouvelleLigne)
+            # we have retrieved the coordinates
+            fileTxt.write(newLine)
             fileTxt.write('\n')
 
     fileCsv.close()
     fileTxt.close()
   
-nom = 'resultline1'
-conversion(nom)
+name = 'resultline1'
+conversion(name)

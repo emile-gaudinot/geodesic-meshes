@@ -1,29 +1,29 @@
 """
-Convertir fichiers csv en fichiers txt que GMSH puisse lire
+Convert csv files to txt files that GMSH can read
 """
 
 import csv
 
 
-def conversion(nomSansExtension):
-    fileCsv = open(nomSansExtension + '.csv')
+def conversion(nameWithoutExtension):
+    fileCsv = open(nameWithoutExtension + '.csv')
     csvreader = csv.reader(fileCsv)
     header = next(csvreader)
-    fileTxt = open(nomSansExtension + '.txt', 'w')
+    fileTxt = open(nameWithoutExtension + '.txt', 'w')
     nbPts = 1
     for row in csvreader:
-        if row != []: # dernière ligne est vide
-            ligne = row[0]
+        if row != []:  # last line is empty
+            line = row[0]
             coos = []
             i = 0
             for j in range(3):
-                mot = ''
-                while ligne[i] != '\t':
-                    mot += ligne[i]
+                word = ''
+                while line[i] != '\t':
+                    word += line[i]
                     i += 1
-                coos.append(float(mot))
+                coos.append(float(word))
                 i += 1
-            #on a récup les coordonnées
+            # we have retrieved the coordinates
             fileTxt.write('//+\n')
             fileTxt.write('Point(' + str(nbPts) + ') = {' + str(coos[0]) + ', ' +
                           str(coos[1]) + ', ' + str(coos[2]) + ', 1.0};\n')
@@ -31,7 +31,8 @@ def conversion(nomSansExtension):
     fileCsv.close()
     fileTxt.close()
 
-nom = 'resultline'
-for i in range(1,10):
-    nomSansExtension = nom + str(i)
-    conversion(nomSansExtension)
+
+name = 'resultline'
+for i in range(1, 10):
+    nameWithoutExtension = name + str(i)
+    conversion(nameWithoutExtension)

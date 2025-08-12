@@ -1,8 +1,8 @@
 """
-A partir d'un nuage de points .csv (sans tabulations), on arrive à générer une image qui
-permet de visualiser les distances géodésiques grâce à un dégradé.
-Les problèmes d'échelle ont été réglés. Le faible de nombre de point a été
-augmenté (1min16 pour 5726 points).
+From a .csv point cloud (without tabs), this script generates an image that
+visualizes geodesic distances using a gradient.
+Scale issues have been resolved. The low number of points has been increased
+(1min16 for 5726 points).
 """
 
 import potpourri3d as pp
@@ -10,14 +10,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 import time
 import csv
-#from mpl_toolkits.mplot3d import axes3d, Axes3D
+# from mpl_toolkits.mplot3d import axes3d, Axes3D
 
 
 def tps(t):
-  print('Temps d\'exécution :', int((time.time()-t)//60), 'min',
-int((time.time()-t)%60), 's')
+  print('Execution time:', int((time.time()-t)//60), 'min', int((time.time()-t)%60), 's')
   
-# afficher les points en dégradé du 0 au 665
+# Display points using a gradient from 0 to 665
 def degrade(X, Y):
   col = np.arange(len(X))
   fig = plt.figure()
@@ -25,7 +24,7 @@ def degrade(X, Y):
   ax.scatter(X, Y, s=20, c=col, marker='o')
   plt.show()
   
-# renvoie liste des bords et leur indice dans VV
+# Returns the list of boundaries and their index in VV
 def bordsTab(points):
   bords = []
   for i in range(1):
@@ -33,13 +32,13 @@ def bordsTab(points):
     bords.append([i, b])
   return bords
   
-# renvoie la distance géodésique d'un point quelconque au bord
+# Returns the geodesic distance from any point to the boundary
 def distBord(S, solver, bords):
-  dist = solver.compute_distance(S) # dist entre S et ts les sommets
+  dist = solver.compute_distance(S)  # distances between S and all vertices
   distMin = dist[bords[0][0]]
   for B in bords:
     i, b = B
-    d = dist[i] # distance entre S et sommet i du bord
+    d = dist[i]  # distance between S and vertex i of the boundary
     if d < distMin:
       distMin = d
   return distMin
@@ -63,15 +62,15 @@ def csv2array(nom):
   
   return points
   
-# afficher des lignes de niveau en fonction des distances géodésiques
+# Display contour lines based on geodesic distances
 def lignesNiveau(points, nbNiveaux=25, ratioPlusGdeDist=1):
   t = time.time()
-  print('Nombre de points :', len(points))
-  solver = pp.PointCloudHeatSolver(points) #ne nécessite pas les faces !
-  #solver = pp.MeshHeatMethodDistanceSolver(VV, FF)
+  print('Number of points:', len(points))
+  solver = pp.PointCloudHeatSolver(points)  # does not require faces!
+  # solver = pp.MeshHeatMethodDistanceSolver(VV, FF)
   bords = bordsTab(points)
   dist = solver.compute_distance(bords[0][0])
-  distMaxEntre2Points = max(dist) * ratioPlusGdeDist # valeur arbitraire
+  distMaxEntre2Points = max(dist) * ratioPlusGdeDist  # arbitrary value
   X, Y, Z, couleurs = [], [], [], []
   
   for S in range(len(points)):
@@ -83,21 +82,21 @@ def lignesNiveau(points, nbNiveaux=25, ratioPlusGdeDist=1):
     Y.append(y)
     Z.append(z)
   
-  # affichage graphique
+  # Graphical display
   cmap = plt.cm.Spectral
   norm = plt.Normalize(vmin=0, vmax=nbNiveaux)
-  ax = plt.axes(projection ="3d")
+  ax = plt.axes(projection="3d")
   ax.set_xlabel('x')
   ax.set_ylabel('y')
   ax.set_zlabel('z')
   
-  #on change les limites selon les 3 axes
+  # Change limits for all 3 axes
   m, M = 20, 75
   ax.set_xlim(m, M)
   ax.set_ylim(m, M)
   ax.set_zlim(m, M)
   
-  #on plot
+  # Plotting
   ax.scatter3D(X, Y, Z, s=30, c=cmap(norm(couleurs)))
   plt.show()
   
